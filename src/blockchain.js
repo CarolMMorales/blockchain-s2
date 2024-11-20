@@ -4,6 +4,9 @@ let TARGET_HASH = 1560;
 
 let validator = require("./validator");
 
+let mongoose = require("mongose");
+
+let blockChainModel = mongoose.model("BlockChain");
 class BlockChain{
 
     constructor(){
@@ -20,7 +23,8 @@ class BlockChain{
         };
 
         if(validator.proofOfWork() == TARGET_HASH){
-            
+            block.hash = hash(block);
+            let newBlock = new blockChainModel(this.block);
         }
 
         this.hash = hash(block);

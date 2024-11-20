@@ -1,8 +1,23 @@
-let BlockChain = require ("./src/blockchain");
+let database = require("./src/database");
 
-let blockChain = new BlockChain();
+database.onConnect(() => {
 
-let hash = require('object-hash');
+    let BlockChain = require ("./src/blockchain");
 
+    let blockChain = new BlockChain();
 
-console.log("Chain: ", blockChain.chain);
+    let hash = require('object-hash');
+
+    let PROOF = 1560;
+
+    if(proofOfWork() == PROOF){
+        blockChain.addNewTransaction("islem", "alex", 200);
+        let prevHash = blockChain.lastBlock() ? 
+            blockChain
+            .lastBlock()
+            .hash : 
+            null;
+        blockChain.addNewBlock(prevHash)
+    }
+    console.log("Chain: ", blockChain.chain);
+})
