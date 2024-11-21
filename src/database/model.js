@@ -1,28 +1,30 @@
-let mongoose = require("mongoose");
-let Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-let BlockChainSchema = new Schema({
+const Schema = mongoose.Schema;
+
+// Esquema de Blockchain
+const BlockChainSchema = new Schema({
     index: {
         required: true,
-        type: Schema.Types.Number 
+        type: Number,
     },
     timestamp: {
         required: true,
-        type: Schema.Types.Date,
-        default: Date.now()
+        type: Date,
+        default: Date.now, // Marca de tiempo por defecto
     },
-    transaction: {
+    transactions: {
         required: true,
-        type: Schema.Types.Array,
+        type: [Object], // Array de transacciones (cada transacción es un objeto)
     },
     prevHash: {
         required: false,
-        type: Schema.Types.String
-    }, 
+        type: String,
+    },
     hash: {
         required: true,
-        type: Schema.Types.String 
-    } 
+        type: String,
+    },
 });
 
-module.exports = mongoose.model("Blockchain", BlockChainSchema);
+export default mongoose.model("Blockchain", BlockChainSchema); // Exporta el modelo

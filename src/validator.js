@@ -1,21 +1,23 @@
-let hash = require("object-hash");
+import hash from "object-hash";
 
-const TARGET_HASH = 1560;
+const TARGET_HASH = 1560; // Hash objetivo predeterminado
 
-module.exports.validProof = (proof) => {
-    let guessHash = hash (proof);
-    console.log("Hashing: ", guessHash);
-    return guessHash == hash(TARGET_HASH);
-}
+// Función para verificar el proof
+export const validProof = (proof, target = TARGET_HASH) => {
+    const guessHash = hash(proof);
+    console.log("Hashing:", guessHash); // Muestra el hash generado
+    return guessHash === hash(target);
+};
 
-module.exports.proofOfWork = () => {
+// Función para encontrar un proof que cumpla con la condición
+export const proofOfWork = (target = TARGET_HASH) => {
     let proof = 0;
-    while (true){
-        if(!module.exports.validProof(proof)){
+    while (true) {
+        if (!validProof(proof, target)) {
             proof++;
-        }else{
+        } else {
             break;
         }
     }
     return hash(proof);
-}
+};

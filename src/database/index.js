@@ -1,17 +1,17 @@
-let mongoose = require("mongoose");
+import mongoose from "mongoose";
+import chalk from "chalk";
 
-let blockChainModel = require("./model");
-
-mongoose.connect("mongodb://localhost:2701/blockChain", (err) =>{
-    if(err){
-        return console.log("Cannot connect to DB");
-    console.log("Badatabase is Connected");
-    connectionCallback();
+async function connectDB() {
+    try {
+        await mongoose.connect("mongodb://localhost:27017/blockchainDB", {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log(chalk.green("Conectado a MongoDB exitosamente"));
+    } catch (error) {
+        console.error(chalk.red("Error conectando a MongoDB:", error.message));
+        throw error;
     }
-}); 
-
-let connectionCallback = () => {};
-
-module.exports.onConnect = (callback) => {
-    connectionCallback = callback;
 }
+
+export default connectDB;
