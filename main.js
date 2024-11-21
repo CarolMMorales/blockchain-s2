@@ -10,7 +10,7 @@ database.onConnect(() => {
 
     let PROOF = 1560;
 
-    if(proofOfWork() == PROOF){
+   /* if(proofOfWork() == PROOF){
         blockChain.addNewTransaction("islem", "alex", 200);
         let prevHash = blockChain.lastBlock() ? 
             blockChain
@@ -18,6 +18,9 @@ database.onConnect(() => {
             .hash : 
             null;
         blockChain.addNewBlock(prevHash)
-    }
+    }*/
+    blockChain.addNewTransaction("islem", "alex", 200);
+    blockChain.addNewBlock(null);
+
     console.log("Chain: ", blockChain.chain);
 })

@@ -1,12 +1,14 @@
 let hash = require('object-hash');
 
-let TARGET_HASH = 1560;
+let TARGET_HASH = hash(1560);
 
 let validator = require("./validator");
 
 let mongoose = require("mongose");
 
 let blockChainModel = mongoose.model("BlockChain");
+
+let chalk = require();
 class BlockChain{
 
     constructor(){
@@ -24,10 +26,14 @@ class BlockChain{
 
         if(validator.proofOfWork() == TARGET_HASH){
             block.hash = hash(block);
-            let newBlock = new blockChainModel(this.block);
+            let newBlock = new blockChainModel(block);
+            newBlock.save((err) => {
+                if(err){
+                    return console.log(chalk.red("Cannot save Block to DB", err.message));
+                }
+                console.log(chalk.green("Block Saved on the DB"));
+            })
         }
-
-        this.hash = hash(block);
         this.chain.push(block);
         this.curr_transactions = [];
         return block;
