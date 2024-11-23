@@ -9,7 +9,7 @@ connectDB()
 
         // Agregar transacciones a la cadena
         blockChain.addNewTransaction("islem", "alex", 200);
-        blockChain.addNewTransaction('Bob', 'Charlie', 50);
+        // blockChain.addNewTransaction('Bob', 'Charlie', 50);
 
         // Si la cadena está vacía, asignamos el bloque genético sin prevHash
         let prevHash = blockChain.isEmpty() ? null : blockChain.lastBlock().hash;
